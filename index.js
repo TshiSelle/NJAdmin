@@ -11,7 +11,6 @@ const {
 } = require('discord.js');
 
 var log = console.log;
-
 console.log = function (a) {
   log('[' + new Date().toLocaleString() + ']: ' + a);
 };
@@ -26,7 +25,7 @@ const client = new Client({
 });
 client.commands = new Collection();
 client.commandArray = [];
-
+//--------------------------------------------FUNCTION FOLDER-------------------------------------------//
 const functionFolder = fs.readdirSync('./src/functions');
 for (const folder of functionFolder) {
   const functionFiles = fs
@@ -34,8 +33,17 @@ for (const folder of functionFolder) {
     .filter((file) => file.endsWith('.js'));
 
   for (const file of functionFiles)
-    require(`./functions/${folder}/${file}`)(client);
+    require(`./src/functions/${folder}/${file}`)(client);
 }
+//--------------------------------------------FUNCTION FOLDER-------------------------------------------//
+
+//--------------------------------------------STATIC RSS-------------------------------------------//
+const rssStaticFolder = fs
+  .readdirSync(`./src/staticRss`)
+  .filter((file) => file.endsWith('.js'));
+for (const file of rssStaticFolder) require(`./src/staticRss/${file}`)(client);
+
+//--------------------------------------------STATIC RSS-------------------------------------------//
 
 //--------------------------------------------AUDIT LOG-------------------------------------------//
 const auditer = new EmbedBuilder();
