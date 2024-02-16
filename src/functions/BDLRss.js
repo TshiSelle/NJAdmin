@@ -42,7 +42,6 @@ setInterval(async () => {
           url: url,
         })
         .setDescription('BDL latest Announcement')
-        //.setThumbnail('https://www.bdl.gov.lb/images/logo2.png')
         .addFields(
           { name: 'Date', value: announcementData[0].date },
           {
