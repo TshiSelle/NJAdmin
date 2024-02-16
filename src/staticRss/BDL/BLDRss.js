@@ -9,7 +9,11 @@ let previousAnnouncement = '';
 module.exports = (client) => {
   client.handleBDLRss = setInterval(async () => {
     try {
-      const response = await axios.get(url, { timeout: 10000 });
+      const guild = client.guilds.cache.get('1163193549471359197');
+      const BDLChannel = guild.channels.cache.find((channel) =>
+        channel.name.startsWith('bdl')
+      );
+      const response = await axios.get(url, { timeout: 50000 });
       const $ = cheerio.load(response.data);
 
       const announcementData = [];
@@ -34,13 +38,52 @@ module.exports = (client) => {
         announcementData[0].announcementNb !==
           previousAnnouncement.announcementNb
       ) {
-        const guild = client.guilds.cache.get('1163193549471359197');
-        const BDLChannel = guild.channels.cache.find((channel) =>
-          channel.name.startsWith('bdl')
-        );
+        console.log(typeof announcementData[0].addressedTo);
+        if (announcementData[0].addressedTo.startsWith('Banks')) {
+          const BanqueDuLibanEmbed = new EmbedBuilder()
+            .setColor('#28aa41')
+            .setTitle('Public Announcement - BDL')
+            .setURL(url)
+            .setAuthor({
+              name: 'Banque Du Liban',
+              iconURL:
+                'https://cms.suse.net/sites/default/files/logo_images/Banque_du_Liban_logo-resized.png',
+              url: url,
+            })
+            .setDescription('BDL latest Announcement')
+            .addFields(
+              { name: 'Date', value: announcementData[0].date },
+              {
+                name: 'Announcement Nb',
+                value: announcementData[0].announcementNb,
+                inline: true,
+              },
+              {
+                name: 'Announcement Title',
+                value: announcementData[0].announcementTitle,
+                inline: true,
+              },
+              {
+                name: 'Addressed to',
+                value: announcementData[0].addressedTo,
+              }
+            )
+
+            .setImage(
+              'https://cms.suse.net/sites/default/files/logo_images/Banque_du_Liban_logo-resized.png'
+            )
+            .setTimestamp()
+            .setFooter({
+              text: 'Date retreived',
+            });
+
+          BDLChannel.send({ embeds: [BanqueDuLibanEmbed] });
+          console.log('BDL Announcement sent to Banks');
+        }
+      } else {
         const BanqueDuLibanEmbed = new EmbedBuilder()
           .setColor('#28aa41')
-          .setTitle('Banque du Liban Announcements')
+          .setTitle('Financial Announcement - BDL')
           .setURL(url)
           .setAuthor({
             name: 'Banque Du Liban',
@@ -76,6 +119,7 @@ module.exports = (client) => {
           });
 
         BDLChannel.send({ embeds: [BanqueDuLibanEmbed] });
+        console.log('BDL Announcement sent to Public');
       }
 
       previousAnnouncement = announcementData[0];

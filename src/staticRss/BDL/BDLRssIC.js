@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-const url = 'https://www.bdl.gov.lb/basiccirculars.php';
+const url = 'https://www.bdl.gov.lb/intermediatecirculars.php';
 let previousDecision = '';
 
 module.exports = (client) => {
@@ -18,6 +18,7 @@ module.exports = (client) => {
         const decisionNb = $(row).find('td:nth-child(2)').text().trim();
         const circularNb = $(row).find('td:nth-child(3)').text().trim();
         const decisionTitle = $(row).find('td:nth-child(5)').text().trim();
+        const relatedDecision = $(row).find('td:nth-child(7)').text().trim();
 
         if (index === 1) {
           decisionData.push({
@@ -25,6 +26,7 @@ module.exports = (client) => {
             decisionNb,
             circularNb,
             decisionTitle,
+            relatedDecision,
           });
         }
       });
@@ -39,7 +41,7 @@ module.exports = (client) => {
         );
         const BanqueDuLibanEmbed = new EmbedBuilder()
           .setColor('#28aa41')
-          .setTitle('Basic Circulars - BDL')
+          .setTitle('Intermediate Circulars - BDL')
           .setURL(url)
           .setAuthor({
             name: 'Banque Du Liban',
@@ -53,7 +55,6 @@ module.exports = (client) => {
             {
               name: 'Decision Nb',
               value: decisionData[0].decisionNb,
-              inline: true,
             },
             {
               name: 'Circular Nb',
@@ -62,7 +63,10 @@ module.exports = (client) => {
             {
               name: 'Decision Title',
               value: decisionData[0].decisionTitle,
-              inline: true,
+            },
+            {
+              name: 'Related Basic Circual Decision',
+              value: decisionData[0].relatedDecision,
             }
           )
 

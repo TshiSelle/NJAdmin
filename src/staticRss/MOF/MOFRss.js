@@ -9,7 +9,7 @@ let previousAnnouncementMOF = '';
 module.exports = (client) => {
   client.handleMOFRss = setInterval(async () => {
     try {
-      const response = await axios.get(urlMOF, { timeout: 10000 });
+      const response = await axios.get(urlMOF, { timeout: 50000 });
       const $ = cheerio.load(response.data);
       const announcementDataMOF = [];
 

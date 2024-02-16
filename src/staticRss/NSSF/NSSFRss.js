@@ -8,7 +8,7 @@ let previousAnnouncementNSSF = '';
 module.exports = (client) => {
   client.handleNSSFRss = setInterval(async () => {
     try {
-      const response = await axios.get(urlNSSF, { timeout: 10000 });
+      const response = await axios.get(urlNSSF, { timeout: 50000 });
       const $ = cheerio.load(response.data);
       const announcementDataNSSF = [];
       const firstLi = $('ul.latest-article li:first-child');

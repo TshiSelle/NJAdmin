@@ -9,7 +9,7 @@ let previousAnnouncementIFRS = '';
 module.exports = (client) => {
   client.handleIFRSRss = setInterval(async () => {
     try {
-      const response = await axios.get(urlIFRS, { timeout: 10000 });
+      const response = await axios.get(urlIFRS, { timeout: 50000 });
       const $ = cheerio.load(response.data);
       const announcementDataIFRS = [];
       fetch(
