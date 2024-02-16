@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { BOT_TOKEN } = process.env;
-
+const fs = require('fs');
 const {
   Client,
   Collection,
@@ -9,8 +9,6 @@ const {
   AuditLogEvent,
   Events,
 } = require('discord.js');
-
-const fs = require('fs');
 
 var log = console.log;
 
