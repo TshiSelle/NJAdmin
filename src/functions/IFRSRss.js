@@ -1,3 +1,8 @@
+const cheerio = require('cheerio');
+const axios = require('axios');
+const fetch = (...args) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
 const urlIFRS = 'https://www.ifrs.org/';
 let previousAnnouncementIFRS = '';
 setInterval(async () => {

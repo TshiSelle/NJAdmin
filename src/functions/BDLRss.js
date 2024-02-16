@@ -1,3 +1,7 @@
+const cheerio = require('cheerio');
+const axios = require('axios');
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const url = 'https://www.bdl.gov.lb/announcements.php';
 let previousAnnouncement = '';
 setInterval(async () => {

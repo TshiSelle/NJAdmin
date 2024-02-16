@@ -1,3 +1,7 @@
+const cheerio = require('cheerio');
+const axios = require('axios');
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const urlMOF = 'http://www.finance.gov.lb/en-us/';
 let previousAnnouncementMOF = '';
 

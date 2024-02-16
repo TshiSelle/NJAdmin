@@ -11,12 +11,6 @@ const {
 } = require('discord.js');
 
 const fs = require('fs');
-const fetch = (...args) =>
-  import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const cheerio = require('cheerio');
-const axios = require('axios');
-
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 var log = console.log;
 
@@ -45,10 +39,6 @@ for (const folder of functionFolder) {
     require(`./functions/${folder}/${file}`)(client);
 }
 
-//--------------------------------User Counts for Only One Server---------------------------------//
-//--------------------------------User Counts for Only One Server---------------------------------//
-//--------------------------------Welcome and Bye Joiner -----------------------------------------//
-//--------------------------------Welcome and Bye Joiner -----------------------------------------//
 //--------------------------------------------AUDIT LOG-------------------------------------------//
 const auditer = new EmbedBuilder();
 client.on(Events.GuildAuditLogEntryCreate, async (auditLog) => {
@@ -78,14 +68,6 @@ client.on(Events.GuildAuditLogEntryCreate, async (auditLog) => {
 });
 
 //--------------------------------------------AUDIT LOG-------------------------------------------//
-//--------------------------------RSS FOR BANQUE DU LIBAN-----------------------------------------//
-//--------------------------------RSS FOR BANQUE DU LIBAN-----------------------------------------//
-//--------------------------------RSS FOR NSSF ---------------------------------------------------//
-//--------------------------------RSS FOR NSSF ---------------------------------------------------//
-//--------------------------------RSS FOR IFRS ---------------------------------------------------//
-//--------------------------------RSS FOR IFRS ---------------------------------------------------//
-//--------------------------------RSS FOR MOF ----------------------------------------------------//
-//--------------------------------RSS FOR MOF ----------------------------------------------------//
 
 client.handleEvents();
 client.handleCommands();
