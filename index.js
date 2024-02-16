@@ -36,6 +36,18 @@ for (const folder of functionFolder) {
     require(`./src/functions/${folder}/${file}`)(client);
 }
 //--------------------------------------------FUNCTION FOLDER-------------------------------------------//
+//--------------------------------------------STATIC RSS-------------------------------------------//
+const rssStaticFolder = fs.readdirSync(`./src/staticRss`);
+for (const folder of rssStaticFolder) {
+  const rssStaticFiles = fs
+    .readdirSync(`./src/staticRss/${folder}`)
+    .filter((file) => file.endsWith('.js'));
+
+  for (const file of rssStaticFiles)
+    require(`./src/staticRss/${folder}/${file}`)(client);
+}
+
+//--------------------------------------------STATIC RSS-------------------------------------------//
 setInterval(async () => {
   const guild = client.guilds.cache.get('1163193549471359197');
   const data = await guild.members.fetch();
@@ -97,14 +109,6 @@ client.on('guildMemberRemove', (member) => {
 
   welcomeChannel.send({ embeds: [welcomeEmbed] });
 });
-
-//--------------------------------------------STATIC RSS-------------------------------------------//
-const rssStaticFolder = fs
-  .readdirSync(`./src/staticRss`)
-  .filter((file) => file.endsWith('.js'));
-for (const file of rssStaticFolder) require(`./src/staticRss/${file}`)(client);
-
-//--------------------------------------------STATIC RSS-------------------------------------------//
 
 //--------------------------------------------AUDIT LOG-------------------------------------------//
 const auditer = new EmbedBuilder();
