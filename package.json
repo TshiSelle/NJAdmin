@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "@discordjs/rest": "^2.2.0",
+    "axios": "^1.6.5",
+    "chalk": "^4.1.2",
+    "cheerio": "^1.0.0-rc.12",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.4",
+    "node-fetch": "^3.3.2",
+    "rss-parser": "^3.13.0"
+  },
+  "name": "njadmin",
+  "description": "Administrative bot with node Java Script",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "keywords": [],
+  "author": "NJA",
+  "license": "ISC"
+}
