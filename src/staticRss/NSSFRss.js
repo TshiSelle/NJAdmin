@@ -1,3 +1,4 @@
+const { EmbedBuilder } = require('discord.js');
 const cheerio = require('cheerio');
 const axios = require('axios');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -28,7 +29,10 @@ module.exports = (client) => {
         announcementDataNSSF[0].announcementTitleNSSF !==
           previousAnnouncementNSSF.announcementTitleNSSF
       ) {
-        const RSSchannelNSSF = client.channels.cache.get('1198316829723082752');
+        const guild = client.guilds.cache.get('1163193549471359197');
+        const NSSFChannel = guild.channels.cache.find((channel) =>
+          channel.name.startsWith('nssf')
+        );
         const NSSFEmbed = new EmbedBuilder()
           .setColor('#2b048c')
           .setTitle('NSSF Announcements')
@@ -37,7 +41,7 @@ module.exports = (client) => {
             name: 'National Social Security Fund',
             iconURL:
               'https://www.cnss.gov.lb/wp-content/themes/nssf/assets/images/logo.png',
-            url: url,
+            url: urlNSSF,
           })
           .setDescription('NSSF latest Announcement')
           .addFields(
@@ -58,7 +62,7 @@ module.exports = (client) => {
             text: 'Date retreived',
           });
 
-        RSSchannelNSSF.send({ embeds: [NSSFEmbed] });
+        NSSFChannel.send({ embeds: [NSSFEmbed] });
       }
 
       previousAnnouncementNSSF = announcementDataNSSF[0];

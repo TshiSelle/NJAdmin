@@ -1,3 +1,4 @@
+const { EmbedBuilder } = require('discord.js');
 const cheerio = require('cheerio');
 const axios = require('axios');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -19,9 +20,6 @@ module.exports = (client) => {
       const date = `${day} ${month}`;
       const announcementTitleMOF = firstLi.find('.text').first().text().trim();
 
-      console.log(date);
-      console.log(announcementTitleMOF);
-
       announcementDataMOF.push({
         date,
         announcementTitleMOF,
@@ -32,7 +30,10 @@ module.exports = (client) => {
         announcementTitleMOF[0].announcementTitleNSSF !==
           previousAnnouncementMOF.announcementTitleNSSF
       ) {
-        const RSSchannelMOF = client.channels.cache.get('1198316829723082752');
+        const guild = client.guilds.cache.get('1163193549471359197');
+        const MOFChannnel = guild.channels.cache.find((channel) =>
+          channel.name.startsWith('mof')
+        );
         const MOFEmbed = new EmbedBuilder()
           .setColor('#00FFFF')
           .setTitle('Ministry of Finance')
@@ -62,7 +63,7 @@ module.exports = (client) => {
             text: 'Date retreived',
           });
 
-        RSSchannelMOF.send({ embeds: [MOFEmbed] });
+        MOFChannnel.send({ embeds: [MOFEmbed] });
       }
 
       previousAnnouncementMOF = announcementDataMOF[0];

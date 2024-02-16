@@ -1,3 +1,4 @@
+const { EmbedBuilder } = require('discord.js');
 const cheerio = require('cheerio');
 const axios = require('axios');
 const fetch = (...args) =>
@@ -33,8 +34,9 @@ module.exports = (client) => {
               announcementDataIFRS[0].announcementCategoryIFRS !==
                 previousAnnouncementIFRS.announcementCategoryIFRS)
           ) {
-            const RSSchannelIFRS = client.channels.cache.get(
-              '1198316829723082752'
+            const guild = client.guilds.cache.get('1163193549471359197');
+            const IFRSChannel = guild.channels.cache.find((channel) =>
+              channel.name.startsWith('ifrs')
             );
             const IFRSEmbed = new EmbedBuilder()
               .setColor('#ff0000')
@@ -69,7 +71,7 @@ module.exports = (client) => {
                 text: 'Date retreived',
               });
 
-            RSSchannelIFRS.send({ embeds: [IFRSEmbed] });
+            IFRSChannel.send({ embeds: [IFRSEmbed] });
           }
 
           previousAnnouncementIFRS = announcementDataIFRS[0];

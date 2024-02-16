@@ -1,3 +1,4 @@
+const { EmbedBuilder } = require('discord.js');
 const cheerio = require('cheerio');
 const axios = require('axios');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -33,7 +34,10 @@ module.exports = (client) => {
         announcementData[0].announcementNb !==
           previousAnnouncement.announcementNb
       ) {
-        const RSSchannel = client.channels.cache.get('1198316829723082752');
+        const guild = client.guilds.cache.get('1163193549471359197');
+        const BDLChannel = guild.channels.cache.find((channel) =>
+          channel.name.startsWith('bdl')
+        );
         const BanqueDuLibanEmbed = new EmbedBuilder()
           .setColor('#28aa41')
           .setTitle('Banque du Liban Announcements')
@@ -71,7 +75,7 @@ module.exports = (client) => {
             text: 'Date retreived',
           });
 
-        RSSchannel.send({ embeds: [BanqueDuLibanEmbed] });
+        BDLChannel.send({ embeds: [BanqueDuLibanEmbed] });
       }
 
       previousAnnouncement = announcementData[0];
