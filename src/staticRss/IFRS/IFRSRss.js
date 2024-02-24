@@ -36,7 +36,7 @@ module.exports = (client) => {
           ) {
             const guild = client.guilds.cache.get('1163193549471359197');
             const IFRSChannel = guild.channels.cache.find((channel) =>
-              channel.name.startsWith('ifrs')
+              channel.name.includes('ifrs')
             );
             const IFRSEmbed = new EmbedBuilder()
               .setColor('#ff0000')
@@ -79,5 +79,5 @@ module.exports = (client) => {
     } catch (error) {
       console.error('Error fetching announcements:', error);
     }
-  }, 10000); //12 hours 43200000
+  }, 43200000); //12 hours 43200000
 };

@@ -31,7 +31,7 @@ module.exports = (client) => {
       ) {
         const guild = client.guilds.cache.get('1163193549471359197');
         const NSSFChannel = guild.channels.cache.find((channel) =>
-          channel.name.startsWith('nssf')
+          channel.name.includes('nssf')
         );
         const NSSFEmbed = new EmbedBuilder()
           .setColor('#2b048c')
@@ -69,5 +69,5 @@ module.exports = (client) => {
     } catch (error) {
       console.error('Error fetching announcements:', error);
     }
-  }, 10000); //12 hours 43200000
+  }, 43200000); //12 hours 43200000
 };
