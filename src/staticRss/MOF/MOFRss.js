@@ -9,14 +9,14 @@ let previousAnnouncementMOF = '';
 
 module.exports = (client) => {
   client.handleMOFRss = setInterval(async () => {
+    const guild = client.guilds.cache.get('1163193549471359197');
+    const MOFChannnel = guild.channels.cache.find((channel) =>
+      channel.name.includes('mof')
+    );
     try {
       const response = await axios.get(urlMOF, { timeout: 50000 });
       const $ = cheerio.load(response.data);
       const announcementDataMOF = [];
-      const guild = client.guilds.cache.get('1163193549471359197');
-      const MOFChannnel = guild.channels.cache.find((channel) =>
-        channel.name.includes('mof')
-      );
 
       const firstLi = $('ul');
 
@@ -69,11 +69,6 @@ module.exports = (client) => {
 
       previousAnnouncementMOF = announcementDataMOF[0];
     } catch (error) {
-      const guild = client.guilds.cache.get('1163193549471359197');
-      const MOFChannnel = guild.channels.cache.find((channel) =>
-        channel.name.includes('mof')
-      );
-
       const MOFError = new EmbedBuilder()
         .setColor('#00FFFF')
         .setTitle('Ministry of Finance')
